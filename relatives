@@ -1,0 +1,42 @@
+<?
+header('Content-Type: text/html; charset=utf-8');
+class Person{
+  private $name;
+  private $lastname;
+  private $age;
+  private $mother;
+  private $father;
+  function __construct($name,$lastname,$age,$mother=null,$father=null){
+    $this->name = $name;
+    $this->lastname = $lastname;
+    $this->age = $age;
+    $this->mother = $mother;
+    $this->father = $father;
+  }
+	public function getName(){return $this->name;}
+	public function getLastname(){return $this->lastname;}
+	public function getAge(){return $this->age;}
+	public function getMother(){return $this->mother;}
+	public function getFather(){return $this->father;}
+	public function getInfo(){
+	  return "
+	    Меня зовут: ".$this->name."<br>
+	    Мою маму зовут: ".$this->getMother()->name."<br>
+	    Моего папу зовут: ".$this->getFather()->name."<br>
+	    Моего деда по отцу зовут: ".$this->getFather()->getFather()->name."<br>
+	    Моего бабушку по отцу зовут: ".$this->getFather()->getMother()->name."<br>
+	    Моего деда по матери зовут: ".$this->getMother()->getFather()->name."<br>
+	    Моего бабушку по матери зовут: ".$this->getMother()->getMother()->getName();
+	      
+	}
+}
+/* Cоздать 2 бубшки и 2 дедушки  */
+$vasya = new Person("Вася","Сидоров",63);
+$nina = new Person("Нина","Сидорова",62);
+$ivan = new Person("Иван","Петров",63);
+$vera = new Person("Вера","Петрова",62);
+$oleg = new Person("Олег","Петров",41,$vera,$ivan);
+$olga = new Person("Ольга","Петрова",41,$nina,$vasya);
+$igor = new Person("Игорь","Петров",12,$olga,$oleg);
+echo $igor->getInfo();
+?>
